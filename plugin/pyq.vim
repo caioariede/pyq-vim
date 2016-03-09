@@ -1,4 +1,12 @@
 " -----------------------------------------------------------------------------
+" settings
+" -----------------------------------------------------------------------------
+if !exists('g:pyq_enter_key')
+    let g:pyq_enter_key = '<Enter>'
+endif
+
+
+" -----------------------------------------------------------------------------
 " functions
 " -----------------------------------------------------------------------------
 function! PyqFn(sel)
@@ -39,8 +47,8 @@ function! PyqFn(sel)
         " resize window
         exec 'resize '. winheight(0)/2
 
-        " add mappings to this buffer
-        nnoremap <buffer> <Enter> :call PyqFnGoto(line('.'))<CR>
+        " create mappings to this buffer
+        exec 'nnoremap <buffer> ' . g:pyq_enter_key . ' :call PyqFnGoto(line("."))<CR>'
     endif
 
     " create a mapping between output and result lines and columns to be
