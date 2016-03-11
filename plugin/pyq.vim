@@ -1,10 +1,17 @@
 " -----------------------------------------------------------------------------
 " settings
 " -----------------------------------------------------------------------------
+if !exists('g:pyq_map_keys')
+    let g:pyq_map_keys = 1
+endif
+
 if !exists('g:pyq_enter_key')
     let g:pyq_enter_key = '<Enter>'
 endif
 
+if !exists('g:pyq_leader_key')
+    let g:pyq_leader_key = '<leader>q'
+endif
 
 " -----------------------------------------------------------------------------
 " functions
@@ -90,7 +97,25 @@ function! PyqFnGoto(slnum)
 endfunction
 
 
+function! PyqPrompt()
+    call inputsave()
+    let sel = input('Find: ')
+    call inputrestore()
+    if sel != ''
+        call PyqFn(sel)
+    endif
+endfunction
+
+
 " -----------------------------------------------------------------------------
 " commands
 " -----------------------------------------------------------------------------
 command -nargs=1 Pyq call PyqFn(<f-args>)
+
+
+" -----------------------------------------------------------------------------
+" mappings
+" -----------------------------------------------------------------------------
+if g:pyq_map_keys
+    exec 'map <silent> '. g:pyq_leader_key . ' :call PyqPrompt()<CR>'
+endif
