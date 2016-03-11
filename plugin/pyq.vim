@@ -30,9 +30,6 @@ function! PyqFn(sel)
     else
         exec 'split ' . pyqbufname
 
-        " remove everything in the buffer
-        normal! ggdG
-
         " save buffer name
         let g:pyqbufnumber = bufwinnr(pyqbufname)
 
@@ -50,6 +47,9 @@ function! PyqFn(sel)
         " create mappings to this buffer
         exec 'nnoremap <buffer> ' . g:pyq_enter_key . ' :call PyqFnGoto(line("."))<CR>'
     endif
+
+    " remove everything in the buffer
+    normal! ggdG
 
     " create a mapping between output and result lines and columns to be
     " accessed in PyqFnGoto function
